@@ -8,8 +8,12 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@babel/preset-env": "^7.22.5",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "14.0.0",
     "csbbust": "1.0.1",
+    "jest": "^27.5.1",
+    "jest-environment-jsdom": "^29.5.0",
     "loader-utils": "3.2.1",
     "moment": "2.29.4",
     "prop-types": "15.8.1",

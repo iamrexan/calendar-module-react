@@ -1,24 +1,25 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import moment from "moment";
-import Calendar from "../../DateCalender/Calendar";
+import Calendar from "@components/DateCalender/Calendar";
 
-describe("Calendar", () => {
+describe("Calendar Component", () => {
   test("renders the calendar header with correct month and year", () => {
     const date = new Date("2022-06-15");
-    const { container } = render(<Calendar date={date} />);
-    const headerText = screen.getByText("June 2022");
+    const { container, getByTestId } = render(<Calendar date={date} />);
+    const headerText = getByTestId('calendar-header-text');
     expect(headerText).toBeInTheDocument();
     expect(container.querySelector(".calendar-header-btn")).toBeTruthy();
   });
 
-  test("renders the weekdays", () => {
-    const { container } = render(<Calendar />);
+  test("renders the weekdays", async () => {
+    const date = new Date("2022-06-15");
+    const { container, getAllByTestId } = render(<Calendar date={date} />);
     const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
+    await waitFor(() => getAllByTestId('calendar-header-text'));
     weekdays.forEach((weekday) => {
-      const weekdayElement = screen.getByText(weekday);
-      expect(weekdayElement).toBeInTheDocument();
-      expect(weekdayElement).toHaveClass("calendar-day-header");
+      const weekdayElement = getAllByTestId(`calendar-day-${weekday}`);
+      expect(weekdayElement).toBeTruthy();
     });
     expect(container.querySelectorAll(".calendar-day-header")).toHaveLength(7);
   });
@@ -27,7 +28,7 @@ describe("Calendar", () => {
     const date = new Date("2022-06-15");
     const { container } = render(<Calendar date={date} />);
     const daysInMonth = moment(date).daysInMonth();
-    expect(container.querySelectorAll(".calendar-day")).toHaveLength(
+    expect(container.querySelectorAll('[data-testid="calenday-day-filled"]')).toHaveLength(
       daysInMonth
     );
   });

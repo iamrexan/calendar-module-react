@@ -25,7 +25,8 @@ const listDayBox = (
         key={`day-${index}`}
         className={`calendar-day ${
           isCuttentDay ? "calendar-day-highlight" : ""
-        }`}
+          }`}
+        data-testid={"calenday-day-filled"}
         onClick={() => onChangeDate(day)}
       >
         {day.format("D")}
@@ -95,7 +96,7 @@ const Calendar = ({ date, onChangeDate }) => {
               <button className="calendar-header-btn" onClick={handlePrevMonth}>
                 &lt;
               </button>
-              {monthName} {year}
+              <p data-testid="calendar-header-text">{monthName} {year}</p>
               <button className="calendar-header-btn" onClick={handleNextMonth}>
                 &gt;
               </button>
@@ -105,7 +106,7 @@ const Calendar = ({ date, onChangeDate }) => {
         <tbody>
           <tr>
             {weekdays.map((day) => (
-              <td key={day} className="calendar-day-header">
+              <td key={day} className="calendar-day-header" data-testid={`calendar-day-${day}`}>
                 {day}
               </td>
             ))}

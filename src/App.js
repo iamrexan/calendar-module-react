@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Calendar from "./DateCalender/Calendar";
+import Calendar from "./components/DateCalender/Calendar";
 import "./styles.scss";
 
 export default function App() {
@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className="App">
       <Calendar
-        date={new Date()}
+        date={new Date('2022-06-01')}
         onChangeDate={(date) => setSelectedDate(date)}
       />
       <label>{selectedDate.toString()}</label>
